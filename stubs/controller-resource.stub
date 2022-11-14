@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Store$CLASS_NAME$Request;
+use App\Http\Requests\Update$CLASS_NAME$Request;
+use Illuminate\Http\Request;
+use App\Models\$CLASS_NAME$;
+use App\Traits\ApiResponser;
+use Illuminate\Http\Response;
+
+class $CLASS_NAME$Controller extends Controller
+{
+    use ApiResponser;
+    /**
+     * Lista de elementos
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return $this->httpOkResponse($CLASS_NAME$::all());
+    }
+
+    /**
+     * Crea un registro del recurso
+     *
+     * @param  App\Http\Requests\Store$CLASS_NAME$Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Store$CLASS_NAME$Request $request)
+    {
+        $$RESOURCE_NAME$ = $CLASS_NAME$::create($request->all());
+        return $this->generateResponse($$RESOURCE_NAME$, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Obtiene el recurso especificado
+     *
+     * @param  App\Models\$CLASS_NAME$  $$RESOURCE_NAME$
+     * @return \Illuminate\Http\Response
+     */
+    public function show($CLASS_NAME$ $$RESOURCE_NAME$)
+    {
+        return $this->httpOkResponse($$RESOURCE_NAME$);
+    }
+
+    /**
+     * Actualiza un recurso especifico
+     *
+     * @param  App\Http\Requests\Update$CLASS_NAME$Request  $request
+     * @param  App\Models\$CLASS_NAME$  $$RESOURCE_NAME$
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Update$CLASS_NAME$Request $request, $CLASS_NAME$ $$RESOURCE_NAME$)
+    {
+        $$RESOURCE_NAME$->update($request->all());
+        return $this->httpOkResponse($$RESOURCE_NAME$);
+    }
+
+    /**
+     * Elimina un recurso especifico
+     *
+     * @param  App\Models\$CLASS_NAME$  $$RESOURCE_NAME$
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($CLASS_NAME$ $$RESOURCE_NAME$)
+    {
+        $$RESOURCE_NAME$->delete();
+        return $this->httpOkResponse();
+    }
+}

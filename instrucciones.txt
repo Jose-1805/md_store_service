@@ -1,0 +1,57 @@
+Para instalar en un cluster de docker-compose:
+    1. Después de clonar o descargar el código, cambie el nombre de la carpeta raíz por el nombre deseado utilizando
+    minúsculas y guiones bajo "service_name".
+    2. Crear o actualizar el archivo de docker-compose.yaml y agregar el servicio o servicios requerido, :
+        version: "3"
+        services:
+            my-service-name:
+                container_name: my-service-name-container-name
+                image: my-service-name-image-name
+                build:
+                    context: /path-to-folder/
+                    dockerfile: docker/DockerfileDC
+                ports:
+                    - "8001:80"
+                volumes:
+                    - "/path-to-folder:/var/www/html"
+                command: >
+                    sh -c "/usr/sbin/nginx
+                    && supervisord"
+
+            mariadb-my-service-name:
+                container_name: my-service-name-db-container-name
+                image: mariadb:latest
+                ports:
+                    - "3306:3306"
+                env_file: enviroment_mariadb_api_gateway.env
+                volumes:
+                    - "/path-to-vol-database/:/var/lib/mysql"
+
+    3. En los archivos descargados del repositorio realizar los siguientes cambios
+        - en el archivo dev_commands.txt asignar el nombre del contenedor agregado en servicio en el campo container
+        - en el archivo install.sh y uninstall.sh cambiar el valor del campo app_name por el nombre asignado al nombre
+        de la carpeta del proyecto
+        - en el archivo install.sh y uninstall.sh cambiar la propiedad default_path, por el la ubicación del proyecto en el contenedor
+
+    4. Crear la imagen de los servicios y arrancarlos con los siguientes comandos en el proyecto que almacene el
+            archivo docker-compose.yaml:
+        - docker-compose up -d
+
+    5. Copiar todo el contenido del archivo dev_commands.txt del repositorio descargado y pegarlo en una consola
+
+    6. Ejecutar en la consola el comando:
+        - install_app
+    8. Dentro de la carpeta que contiene el archivo docker-compose.yaml ejecutar el siguiente comando para que octane se inicie
+        - docker-compose restart
+    9. Configure los datos de conexión a la base de datos en el archivo .env
+
+Para instalar modo local:
+    1. Cambiar el nombre de la carpeta del proyecto por el nombre deseado utilizando minúsculas y guiones bajos "service_name"
+    2. Cambiar en install.sh y uninstall.sh la propiedad app_name, por el nombre asignado a la carpeta del proyecto
+    3. Cambiar en install.sh y uninstall.sh la propiedad default_path, por el la ubicación del proyecto
+    4. Ejecutar el archivo install.sh ejecutando el comando "./install.sh" en la raíz del proyecto
+    5. Configure la conexión a base de datos y lo que sea requerido en el archivo .env
+
+Para crear un recurso
+    1. Para crear un recurso con modelo, requests, controlador y rutas ejecute el siguiente comando
+        php artisan make:resource ResourceName

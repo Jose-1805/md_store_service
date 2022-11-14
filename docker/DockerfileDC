@@ -1,0 +1,24 @@
+FROM php:8.0.24-fpm-alpine3.16
+COPY /docker/php.ini "$PHP_INI_DIR/php.ini"
+COPY /docker/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY /docker/www.conf /usr/local/etc/php-fpm.d/www.conf.default
+COPY /docker/supervisord.conf /etc/supervisord.conf
+RUN apk update
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions
+RUN install-php-extensions xdebug
+RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
+RUN install-php-extensions pdo_mysql zip intl soap gd opcache bcmath sockets
+RUN mkdir /var/log/supervisor
+RUN apk add nginx supervisor
+RUN rm -rf /etc/nginx/http.d/*
+COPY /docker/default /etc/nginx/http.d/default.conf
+COPY /docker/fastcgi-php.conf /etc/nginx/fastcgi-php.conf
+WORKDIR /var/www/html
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+#RUN php artisan test
+EXPOSE 80
+CMD ["sh", "-c", "/usr/sbin/nginx && supervisord"]
+
+# La primera vez que se genera el contenedor se conecta y ejecuta el archivo ./install.sh
