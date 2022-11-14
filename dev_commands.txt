@@ -1,4 +1,4 @@
-container=container-name
+container=md-store-service-dc
 alias artisan="docker exec -it $container php artisan"
 alias migrate="docker exec -it $container php artisan migrate"
 alias make_resource="docker exec -it $container sh ./docker/commands/make_resource.sh"

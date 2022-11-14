@@ -1,4 +1,4 @@
-app_name="service_name"
+app_name="md_store_service"
 default_path="/var/www/html"
 #default_path="/home/jose/Descargas/new/template"
 tmp_path="/tmp/$app_name"
