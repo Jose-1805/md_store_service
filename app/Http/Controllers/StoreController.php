@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Models\Store;
 use App\Services\ApiGateway;
@@ -49,6 +50,14 @@ class StoreController extends Controller
                 $store->update([
                     'file_id' => $response['data']['id']
                 ]);
+
+                Seller::create([
+                    'admin' => '1',
+                    'priority' => 1,
+                    'seller_id' => $request->admin,
+                    'store_id' => $store->id,
+                ]);
+                $store->sellers;
                 return $this->generateResponse($store, Response::HTTP_CREATED);
             } else {
                 return $this->generateResponse('Error desconocido almacenando archivo', Response::HTTP_UNPROCESSABLE_ENTITY);

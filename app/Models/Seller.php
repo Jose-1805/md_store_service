@@ -6,26 +6,23 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Store extends Model
+class Seller extends Model
 {
     use HasFactory;
     use HasUuids;
 
-    protected $table = 'stores';
+    protected $table = 'sellers';
 
     protected $fillable = [
         'id',
-        'name',
-        'status',
-        'url',
-        'whatsapp',
-        'facebook',
-        'instagram',
-        'file_id',
+        'admin',
+        'priority',
+        'seller_id',
+        'store_id',
     ];
 
-    public function sellers()
+    public function store()
     {
-        return $this->hasMany(Seller::class);
+        return $this->belongsTo(Store::class);
     }
 }

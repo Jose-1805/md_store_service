@@ -21,6 +21,9 @@ mv $default_path/stubs $tmp_path/
 echo '#### mv $default_path/app/Http/Kernel.php $tmp_path/Kernel.php'
 mv $default_path/app/Http/Kernel.php $tmp_path/Kernel.php
 
+echo '#### mv $default_path/app/Rules/OkApiGatewayResponse.php $tmp_path/OkApiGatewayResponse.php'
+mv $default_path/app/Rules/OkApiGatewayResponse.php $tmp_path/OkApiGatewayResponse.php
+
 echo '#### mv $default_path/app/Services/ApiGateway.php $tmp_path/ApiGateway.php'
 mv $default_path/app/Services/ApiGateway.php $tmp_path/ApiGateway.php
 

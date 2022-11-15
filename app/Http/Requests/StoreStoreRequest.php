@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\OkApiGatewayResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreStoreRequest extends FormRequest
@@ -31,6 +32,7 @@ class StoreStoreRequest extends FormRequest
             'facebook' => 'nullable|url|max:250',
             'instagram' => 'nullable|url|max:250',
             'file' => 'required|file|mimes:png,jpg,webp|max:200',
+            'admin' => ['required', new OkApiGatewayResponse('/api/seller')]
         ];
     }
 
@@ -41,6 +43,7 @@ class StoreStoreRequest extends FormRequest
             'status' => 'estado',
             'url' => 'url',
             'file' => 'archivo',
+            'admin' => 'administrador',
         ];
     }
 
