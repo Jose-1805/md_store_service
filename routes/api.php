@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('store/download-logo/{store}', [StoreController::class, 'downloadLogo']);
+Route::prefix('store')->group(function () {
+    Route::put('toggle-seller', [StoreController::class, 'toggleSeller']);
+    Route::get('download-logo/{store}', [StoreController::class, 'downloadLogo']);
+});
 Route::apiResource('store', StoreController::class);
