@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('store')->group(function () {
     Route::put('toggle-seller', [StoreController::class, 'toggleSeller']);
-    Route::get('download-logo/{store}', [StoreController::class, 'downloadLogo']);
+    Route::get('{store}/logo', [StoreController::class, 'downloadLogo']);
 });
 Route::apiResource('store', StoreController::class);
